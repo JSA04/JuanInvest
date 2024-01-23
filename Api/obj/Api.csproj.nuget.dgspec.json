@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juan1\\JuanInvest\\Api\\Api.csproj": {}
+    "/home/f72823/Documentos/JuanInvest/Api/Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juan1\\JuanInvest\\Api\\Api.csproj": {
+    "/home/f72823/Documentos/JuanInvest/Api/Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juan1\\JuanInvest\\Api\\Api.csproj",
+        "projectUniqueName": "/home/f72823/Documentos/JuanInvest/Api/Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\juan1\\JuanInvest\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\juan1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juan1\\JuanInvest\\Api\\obj\\",
+        "projectPath": "/home/f72823/Documentos/JuanInvest/Api/Api.csproj",
+        "packagesPath": "/home/f72823/.nuget/packages/",
+        "outputPath": "/home/f72823/Documentos/JuanInvest/Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juan1\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/f72823/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -35,20 +35,22 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.5, )"
             },
-            "Microsoft.Extensions.Configuration": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.5, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -74,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.418\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.115/RuntimeIdentifierGraph.json"
         }
       }
     }

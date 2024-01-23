@@ -1,5 +1,6 @@
-using Api;
-using Api.Domain;
+using Api.Infrastructure;
+using Api.Repositories;
+using Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,17 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Dependency Injection
+builder.Services.AddScoped<IAcoesRepository, AcoesRepository>();
+builder.Services.AddScoped<IAcoesService, AcoesService>();
+
+// Db Connection Configuration.
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
-
-// Db Conection Configuration.
-var configBuilder = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
-
-IConfiguration _configuration = configBuilder.Build();
-
-builder.Services.AddDbContext<InvestContext>(options =>
-            options.UseNpgsql(_configuration.GetConnectionString("InvestDb")));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

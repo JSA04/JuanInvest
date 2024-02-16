@@ -1,17 +1,18 @@
 
 namespace Api.Domain.Entities;
 
-public class Stock 
+public class Stock
 {
-    public string? StockId {get; set;}    
-    public string? EnterpriseName {get; set;}
-    public double Price {get; set;}
+    public string? Id {get; set;}    
+    public string? Empresa {get; set;}
+    public double Preco {get; set;}
     public double DividendYield {get; set;}
-    public double Pl {get; set;}
-    public double Pvp {get; set;}
-    public double NetDebtEbtida {get; set;}
-    public double NetMargin {get; set;}
+    public double PrecoLucro {get; set;}
+    public double PrecoValorPatrimonial {get; set;}
+    public double DividaLiquidaEbitda {get; set;}
+    public double MargemLiquida {get; set;}
     public double Roe {get; set;}
-    public double CagrProfit {get; set;}
-    public double CagrIncome {get; set;}
+    public double CagrLucro {get; set;}
+    public double CagrReceitas {get; set;}
+    public DateTime? UltimaAtualizacao {get; set;}
 }

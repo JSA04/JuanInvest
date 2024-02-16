@@ -40,3 +40,13 @@
 /home/f72823/Documentos/JuanInvest/Api/obj/Debug/net7.0/Api.pdb
 /home/f72823/Documentos/JuanInvest/Api/obj/Debug/net7.0/Api.genruntimeconfig.cache
 /home/f72823/Documentos/JuanInvest/Api/obj/Debug/net7.0/ref/Api.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/DotNetEnv.dll
+/home/f72823/Documentos/JuanInvest/Api/bin/Debug/net7.0/Sprache.dll

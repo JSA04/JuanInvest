@@ -11,34 +11,32 @@ public class TokenService
     public static string GenerateToken(User user)
     {
         // Definindo informações da autenticação.
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
-        };
-        
-        // Chave secreta.
-        var stringKey = Environment.GetEnvironmentVariable("authSecretKey");
-        if (stringKey is null)
-            throw new KeyNotFoundException();
-        var key =
-            new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(stringKey)
-            );
-        
-        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-        
-        // Tempo de expiração do token.
-        var expires = DateTime.UtcNow.AddHours(1);
-        
-        // Token.
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: expires,
-            signingCredentials: cred
-        );
+        var tokenHandler = new JwtSecurityTokenHandler();
 
-        return token.ToString();
+        // Chave secreta.
+        var key = Environment.GetEnvironmentVariable("SECRET_KEY")
+            ?? throw new KeyNotFoundException();
+        var keyBytes = Encoding.ASCII.GetBytes(key);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity (new []
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role)
+            }),
+            
+            // Tempo de expiração do token.
+            
+            Expires = DateTime.UtcNow.AddHours(1),
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        // Token.
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        
+        return tokenHandler.WriteToken(token); 
     }
 }

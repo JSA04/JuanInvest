@@ -24,14 +24,15 @@ public class StockService: IStockService
         {
             stockDto.Id = stockDto.Id!.ToUpper();
             
-            if (_repository.StockExists(stockDto.Id))
-                return new ServiceResult(400, StockResponse.CreateAlreadyExistsWithCode);
+            if (await _repository.StockExists(stockDto.Id))
+                return new ServiceResult(StatusCodes.Status400BadRequest,
+                    StockResponse.CreateAlreadyExistsWithCode);
 
             var stockEntity = StockMapper.ToEntity(stockDto);
 
             await _repository.CreateStock(stockEntity);
 
-            return new ServiceResult<StockDTO>(201, StockResponse.Created, stockDto);
+            return new ServiceResult<StockDTO>(StatusCodes.Status201Created, StockResponse.Created, stockDto);
         } 
         catch (Exception ex) 
         {
@@ -50,12 +51,13 @@ public class StockService: IStockService
             var stocksList = stocks.ToList();
             
             if (!stocksList.Any())
-                if (pageNumber != 1) return new ServiceResult(200, StockResponse.ReadFilterNotFound);
-                else return new ServiceResult(200, StockResponse.ReadDontExistsAny);
+                if (pageNumber != 1) return new ServiceResult(StatusCodes.Status200OK, 
+                    StockResponse.ReadFilterNotFound);
+                else return new ServiceResult(StatusCodes.Status200OK, StockResponse.ReadDontExistsAny);
             
             var stocksDtoList = StockMapper.ToDtoList(stocksList);
 
-            return new ServiceResult<IEnumerable<StockDTO>>(200, StockResponse.Read, stocksDtoList);
+            return new ServiceResult<IEnumerable<StockDTO>>(StatusCodes.Status200OK, StockResponse.Read, stocksDtoList);
         } 
         catch (Exception ex) 
         {
@@ -74,11 +76,12 @@ public class StockService: IStockService
             var stock = await _repository.GetStockById(id);
 
             if (stock is null) 
-                return new ServiceResult(404, StockResponse.ReadDontExistsWithCode);
+                return new ServiceResult(StatusCodes.Status201Created, 
+                    StockResponse.ReadDontExistsWithCode);
 
             var stockDto = StockMapper.ToDto(stock);
 
-            return new ServiceResult<StockDTO>(200, StockResponse.Read, stockDto);
+            return new ServiceResult<StockDTO>(StatusCodes.Status200OK, StockResponse.Read, stockDto);
         } 
         catch (Exception ex) 
         {
@@ -95,16 +98,18 @@ public class StockService: IStockService
             id = id.ToUpper();
 
             if (id != stockDto.Id)
-                return new ServiceResult(400, StockResponse.ReadFail);
+                return new ServiceResult(StatusCodes.Status400BadRequest, 
+                    StockResponse.ReadFail);
             
-            if (!_repository.StockExists(id))
-                return new ServiceResult(400, StockResponse.AlterDifferentBodyId);
+            if (!await _repository.StockExists(id))
+                return new ServiceResult(StatusCodes.Status400BadRequest, 
+                    StockResponse.AlterDifferentBodyId);
 
             var stock = StockMapper.ToEntity(stockDto);
 
             await _repository.UpdateStock(id, stock);
 
-            return new ServiceResult(200, StockResponse.Altered);
+            return new ServiceResult(StatusCodes.Status200OK, StockResponse.Altered);
         } 
         catch (Exception ex) 
         {
@@ -120,12 +125,13 @@ public class StockService: IStockService
         {
             id = id.ToUpper();
 
-            if (!_repository.StockExists(id))
-                return new ServiceResult(400, StockResponse.DeleteDontExists);
+            if (!await _repository.StockExists(id))
+                return new ServiceResult(StatusCodes.Status400BadRequest, 
+                    StockResponse.DeleteDontExists);
 
             await _repository.DeleteStock(id);
             
-            return new ServiceResult(200, StockResponse.Deleted);
+            return new ServiceResult(StatusCodes.Status200OK, StockResponse.Deleted);
         }
         catch (Exception ex)
         {

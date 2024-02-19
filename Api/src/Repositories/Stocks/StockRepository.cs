@@ -34,8 +34,8 @@ public class StockRepository : IStockRepository
         await _infrastructure.Stocks.AsNoTracking()
             .FirstOrDefaultAsync(s => s.Id == id);
 
-    public bool StockExists(string id) => 
-        GetStockById(id).Result != null;
+    public async Task<bool> StockExists(string id) => 
+        await GetStockById(id) != null;
     
     public async Task UpdateStock(string id, Stock updatedStock) 
     {

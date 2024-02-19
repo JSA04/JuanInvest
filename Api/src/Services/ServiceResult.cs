@@ -1,4 +1,4 @@
-namespace Api.Domain;
+namespace Api.Services;
 
 public interface IServiceResult
 {

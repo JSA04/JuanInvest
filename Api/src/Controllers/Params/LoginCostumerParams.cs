@@ -1,8 +1,8 @@
 
 namespace Api.Controllers.Params;
 
-public class LoginUserBodyParams
+public class LoginCostumerParams
 {
-    public required string UserOrEmail {get; set;}
+    public required string CpfOrEmail {get; set;}
     public required string Password {get; set;}
 }

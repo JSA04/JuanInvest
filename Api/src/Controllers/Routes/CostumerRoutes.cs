@@ -1,7 +1,7 @@
 
 namespace Api.Controllers.Routes;
 
-public static class UserRoutes 
+public static class CostumerRoutes 
 {
     public const string Register = "register";
     public const string Login = "login";

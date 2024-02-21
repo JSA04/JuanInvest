@@ -8,7 +8,7 @@ public class AppDbContext : DbContext
     private readonly IConfiguration _config;
 
     public DbSet<Stock> Stocks { get; set; }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Costumer> Costumers { get; set; }
 
     public AppDbContext(IConfiguration configuration)
     {
@@ -48,12 +48,20 @@ public class AppDbContext : DbContext
             .HasColumnType("date");
 
         // Users
-        mb.Entity<User>().HasKey(u => u.Email);
-        mb.Entity<User>().Property(u => u.UserName)
+        mb.Entity<Costumer>().HasKey(c => c.Id);
+        mb.Entity<Costumer>().Property(c => c.Id)
             .HasMaxLength(200);
-        mb.Entity<User>().Property(u => u.Email)
+        mb.Entity<Costumer>().Property(c => c.Name)
+            .HasMaxLength(100);    
+        mb.Entity<Costumer>().Property(c => c.Surname)
+            .HasMaxLength(300);
+        mb.Entity<Costumer>().Property(c => c.Cpf)
+            .HasMaxLength(11);
+        mb.Entity<Costumer>().Property(c => c.Email)
             .HasMaxLength(200);
-        mb.Entity<User>().Property(u => u.Password)
+        mb.Entity<Costumer>().Property(c => c.Password)
             .HasMaxLength(200);
+        mb.Entity<Costumer>().Property(c => c.Password)
+            .HasMaxLength(20).HasConversion<string>();
     }
 }

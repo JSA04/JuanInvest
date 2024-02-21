@@ -24,7 +24,7 @@ public class StockController : ControllerBase
     [HttpPost(StockRoutes.Register)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = UserRoles.Costumer)]
+    [Authorize(Roles = CostumerRoles.Costumer)]
     public async Task<IActionResult> RegisterStock([FromBody] StockDTO stockDto)
     {
         try
@@ -42,7 +42,7 @@ public class StockController : ControllerBase
     [HttpGet(StockRoutes.GetAll)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = $"{UserRoles.Costumer},{UserRoles.System}")]
+    [Authorize(Roles = $"{CostumerRoles.Costumer},{CostumerRoles.System}")]
     public async Task<IActionResult> Stocks
         ([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
@@ -62,7 +62,7 @@ public class StockController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = $"{UserRoles.Costumer},{UserRoles.System}")]
+    [Authorize(Roles = $"{CostumerRoles.Costumer},{CostumerRoles.System}")]
     public async Task<IActionResult> GetStockById ([FromRoute] string id)
     {
         try
@@ -80,7 +80,7 @@ public class StockController : ControllerBase
     [HttpPut(StockRoutes.Alter)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = UserRoles.System)]
+    [Authorize(Roles = CostumerRoles.System)]
     public async Task<IActionResult> AlterStock
         ([FromRoute] string id, [FromBody] StockDTO stockDto)
     {
@@ -99,7 +99,7 @@ public class StockController : ControllerBase
     [HttpDelete(StockRoutes.Delete)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = UserRoles.System)]
+    [Authorize(Roles = CostumerRoles.System)]
     public async Task<IActionResult> DeleteStock([FromRoute] string id)
     {
         try 

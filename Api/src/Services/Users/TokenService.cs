@@ -8,7 +8,7 @@ namespace Api.Services;
 
 public class TokenService
 {
-    public static string GenerateToken(User user)
+    public static string GenerateToken(Costumer costumer)
     {
         // Definindo informações da autenticação.
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -22,9 +22,9 @@ public class TokenService
         {
             Subject = new ClaimsIdentity (new []
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Name, costumer.Name),
+                new Claim(ClaimTypes.Email, costumer.Email),
+                new Claim(ClaimTypes.Role, costumer.Role.ToString())
             }),
             
             // Tempo de expiração do token.

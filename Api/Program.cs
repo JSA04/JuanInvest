@@ -24,8 +24,8 @@ builder.Configuration.AddDotNetEnv(".env", LoadOptions.TraversePath());
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IStockService, StockService>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICostumerRepository, CostumerRepository>();
+builder.Services.AddScoped<ICostumerService, CostumerService>();
 
 // Db Connection Configuration.
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -5,89 +5,91 @@ using Api.Controllers.Params;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Api.Controllers.Routes;
-using Microsoft.OpenApi.Expressions;
 
 namespace Api.Controllers;
 
 [Controller]
-[Route("user")]
-public class UserController : ControllerBase
+[Route("costumer")]
+public class CostumerController : ControllerBase
 {
-    private readonly IUserService _service;
+    private readonly ICostumerService _service;
     private readonly ILogger _logger;
 
-    public UserController(IUserService service, ILogger<UserController> logger)
+    public CostumerController(ICostumerService service, ILogger<CostumerController> logger)
     {
         _service ??= service;
         _logger ??= logger;
     }
 
     [AllowAnonymous]
-    [HttpPost(UserRoutes.Login)] 
+    [HttpPost(CostumerRoutes.Login)] 
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login(
-        [FromBody] LoginUserBodyParams bodyParams)
+        [FromBody] LoginCostumerParams bodyParams)
     {
         try 
         {
-            string userOrEmail = bodyParams.UserOrEmail;
+            string cpfOrEmail = bodyParams.CpfOrEmail;
             string password = bodyParams.Password;
 
-            var result = await _service.UserLogin(userOrEmail, password);
+            var result = await _service.CostumerLogin(cpfOrEmail, password);
             return StatusCode(result.StatusCode, result);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.StackTrace);
-            return BadRequest(UserResponses.BadRequest);
+            return BadRequest(CostumerResponses.BadRequest);
         }
     }
 
     [AllowAnonymous]
-    [HttpPost(UserRoutes.Register)]
+    [HttpPost(CostumerRoutes.Register)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register(
-        [FromBody] RegisterUserBodyParams bodyParams)
+        [FromBody] RegisterCostumerParams bodyParams)
     {
         try
         {
-            string user = bodyParams.UserName;
+            string id = Guid.NewGuid().ToString();
+            string cpf = bodyParams.Cpf;
+            string surname = bodyParams.Surname;
+            string name = bodyParams.Name;
             string email = bodyParams.Email;
             string password = bodyParams.Password;
 
-            var result = await _service.UserRegister(user, email, password);
+            var result = await _service.CostumerRegister(id, cpf, name, surname, email, password);
 
             return StatusCode(result.StatusCode, result);
         } 
         catch (Exception ex)
         {
             _logger.LogError(ex.StackTrace);
-            return BadRequest(UserResponses.BadRequest);
+            return BadRequest(CostumerResponses.BadRequest);
         } 
     }
 
     [AllowAnonymous]
-    [HttpPost(UserRoutes.GetAll)]
+    [HttpPost(CostumerRoutes.GetAll)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Users(
+    public async Task<IActionResult> Costumers(
         int pageNumber = 1, int pageSize = 10)
     {
         try
         {
-            var result = await _service.ReadUsers(pageNumber, pageSize);
+            var result = await _service.ReadCostumers(pageNumber, pageSize);
 
             return StatusCode(result.StatusCode, result);
         } 
         catch (Exception ex)
         {
             _logger.LogError(ex.StackTrace);
-            return BadRequest(UserResponses.BadRequest);
+            return BadRequest(CostumerResponses.BadRequest);
         } 
     }
 }
